@@ -1,39 +1,29 @@
-# client
+## 简单聊天室客户端
 
-This template should help get you started developing with Vue 3 in Vite.
+### 功能
 
-## Recommended IDE Setup
+- 对话
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### 运行
 
-## Type Support for `.vue` Imports in TS
+```
+npm install && npm start     # 安装依赖并启动
+```
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### 安装
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+```
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 启动
 
-```sh
-npm run dev
+```
+npm start
 ```
 
-### Type-Check, Compile and Minify for Production
+### 打包
 
-```sh
+```
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```

@@ -27,3 +27,8 @@ npm start
 ```
 npm run build
 ```
+
+### 其他
+
+客户端代码请参考 [chat-room-client](https://github.com/OnZeng/chat-room-client)。
+服务器端代码请参考 [chat-room-server](https://github.com/OnZeng/chat-room-server)。

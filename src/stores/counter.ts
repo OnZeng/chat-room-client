@@ -3,8 +3,11 @@ import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', () => {
   const el: any = ref(null)
+  const log: any = ref(null)
+
   const onlineUsers: any = ref([])
   const messageLists: any = ref([])
+  const logs: any = ref([])
   const user: any = ref({
     id: '',
     name: '',
@@ -16,5 +19,9 @@ export const useCounterStore = defineStore('counter', () => {
     await nextTick()
     el.value.scrollTop = el.value.scrollHeight
   }
-  return { user, messageLists, onlineUsers, el, rollToTheBottom }
+  const rollToTheBottom2 = async () => {
+    await nextTick()
+    log.value.scrollTop = log.value.scrollHeight
+  }
+  return { user, messageLists, onlineUsers, el, logs, log, rollToTheBottom, rollToTheBottom2 }
 })

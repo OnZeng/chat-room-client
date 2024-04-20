@@ -32,6 +32,17 @@
         <button class="button1" @click="sendMsg">发送</button>
       </div>
     </div>
+    <div class="box6">
+      <div class="box7">
+        <a href="https://github.com/OnZeng/chat-room-server" target="_blank">Github</a>
+      </div>
+      <div class="box8" id="log">
+        <div style="text-align: center;">日志</div>
+        <template v-for="item in stores.logs">
+          <div class="box8-item">{{ item }}</div>
+        </template>
+      </div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -51,13 +62,16 @@ const sendMsg = () => {
 
 onMounted(() => {
   const divElement = document.getElementById('el')
+  const divElement2 = document.getElementById('log')
   stores.el = divElement
+  stores.log = divElement2
   stores.rollToTheBottom()
+  stores.rollToTheBottom2()
 });
 </script>
 <style scoped>
 .box-title {
-  max-width: 800px;
+  width: 1000px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -69,7 +83,7 @@ onMounted(() => {
 }
 
 .box1 {
-  max-width: 800px;
+  width: 1000px;
   height: 600px;
   border: 1px solid;
   display: flex;
@@ -147,7 +161,7 @@ onMounted(() => {
 .box2-avatar {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 4px;
   border: 1px solid;
 }
 
@@ -181,5 +195,40 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.box6 {
+  width: 300px;
+  height: 100%;
+  border: 1px solid;
+  border-right: 0;
+  border-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.box7 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box8 {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.box8::-webkit-scrollbar {
+  display: none;
+}
+
+.box8-item {
+  font-size: 12px;
+  padding-left: 5px;
+  overflow: hiddden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
 }
 </style>

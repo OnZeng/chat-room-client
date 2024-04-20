@@ -57,7 +57,7 @@ onMounted(() => {
 </script>
 <style scoped>
 .box-title {
-  width: 800px;
+  max-width: 800px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -69,7 +69,7 @@ onMounted(() => {
 }
 
 .box1 {
-  width: 800px;
+  max-width: 800px;
   height: 600px;
   border: 1px solid;
   display: flex;

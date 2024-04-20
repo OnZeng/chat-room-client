@@ -79,6 +79,11 @@ onMounted(() => {
   width: 150px;
   height: 100%;
   border-right: 1px solid;
+  overflow-y: scroll;
+}
+
+.box2::-webkit-scrollbar {
+  display: none;
 }
 
 .box3 {

@@ -15,6 +15,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { useCounterStore } from '../stores/counter'
+import { socket } from "@/socket";
 
 const stores = useCounterStore()
 const router = useRouter()
@@ -37,6 +38,13 @@ const submit = () => {
     if (!user.value.name.trim()) return alert(`请输入昵称`);
     stores.user.name = user.value.name
     stores.user.avatar = user.value.avatar
+    if (!socket.connected) return alert('服务器连接失败')
+    // 发送用户信息到服务器
+    socket.emit("onlineUsers", {
+        id: socket.id,
+        name: user.value.name,
+        avatar: user.value.avatar
+    })
     router.push('chat-room')
 }
 </script>

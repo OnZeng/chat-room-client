@@ -14,6 +14,7 @@ export const socket = io(URL)
 
 socket.on('connect', () => {
   state.connected = true
+  console.log('连接成功')
 })
 
 socket.on('disconnect', () => {
@@ -22,6 +23,7 @@ socket.on('disconnect', () => {
 
 socket.on('foo', (...args) => {
   state.fooEvents.push(args)
+  console.log('foo', args)
 })
 
 socket.on('bar', (...args) => {

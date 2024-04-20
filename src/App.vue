@@ -3,10 +3,12 @@
 </template>
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import { state } from "@/socket";
 import { onMounted } from 'vue';
+import { useMonitorStore } from '@/stores/onmonitor'
+
+const Monitor = useMonitorStore()
 
 onMounted(() => {
-  state.connected
+  Monitor.init()
 });
 </script>

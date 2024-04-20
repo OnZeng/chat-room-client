@@ -4,7 +4,7 @@ import { socket } from '@/socket'
 
 export const useMonitorStore = defineStore('counter2', () => {
   const stores = useCounterStore()
-  const init = () => {
+  const init = async () => {
     // 监听服务器端的连接并且初始化
     socket.on('connection', async (data) => {
       stores.messageLists = data.messageLists
@@ -19,7 +19,7 @@ export const useMonitorStore = defineStore('counter2', () => {
       if (stores.el.scrollTop >= stores.el.scrollHeight - 650) {
         stores.rollToTheBottom()
       }
-      if (stores.log.scrollTop >= stores.log.scrollHeight - 650) {
+      if (stores.el2.scrollTop >= stores.el2.scrollHeight - 650) {
         stores.rollToTheBottom2()
       }
       // console.log(data);
@@ -33,7 +33,7 @@ export const useMonitorStore = defineStore('counter2', () => {
     socket.on('logs', (data) => {
       stores.logs = data
       // console.log(data)
-      if (stores.log.scrollTop >= stores.log.scrollHeight - 650) {
+      if (stores.el2.scrollTop >= stores.el2.scrollHeight - 650) {
         stores.rollToTheBottom2()
       }
     })

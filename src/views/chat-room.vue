@@ -36,8 +36,8 @@
       <div class="box7">
         <a href="https://github.com/OnZeng/chat-room-server" target="_blank">Github</a>
       </div>
+      <div style="text-align: center;">日志</div>
       <div class="box8" id="log">
-        <div style="text-align: center;">日志</div>
         <template v-for="item in stores.logs">
           <div class="box8-item">{{ item }}</div>
         </template>
@@ -60,11 +60,11 @@ const sendMsg = () => {
   stores.rollToTheBottom()
 };
 
-onMounted(() => {
+onMounted(async () => {
   const divElement = document.getElementById('el')
   const divElement2 = document.getElementById('log')
   stores.el = divElement
-  stores.log = divElement2
+  stores.el2 = divElement2
   stores.rollToTheBottom()
   stores.rollToTheBottom2()
 });
@@ -162,7 +162,7 @@ onMounted(() => {
   width: 40px;
   height: 40px;
   border-radius: 4px;
-  border: 1px solid;
+  /* border: 1px solid; */
 }
 
 .box2-name {
@@ -186,7 +186,6 @@ onMounted(() => {
 .box4-avatar {
   width: 40px;
   height: 40px;
-  border: 1px solid;
   border-radius: 4px;
 }
 
@@ -198,7 +197,7 @@ onMounted(() => {
 }
 
 .box6 {
-  width: 300px;
+  width: 250px;
   height: 100%;
   border: 1px solid;
   border-right: 0;

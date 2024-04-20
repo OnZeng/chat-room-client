@@ -10,6 +10,7 @@ export const useMonitorStore = defineStore('counter2', () => {
       stores.messageLists = data.messageLists
       stores.onlineUsers = data.onlineUsers
       stores.logs = data.logs
+      stores.historyCount = data.historyCount
       stores.user.id = socket.id
       console.log(data)
     })
@@ -19,23 +20,24 @@ export const useMonitorStore = defineStore('counter2', () => {
       if (stores.el.scrollTop >= stores.el.scrollHeight - 650) {
         stores.rollToTheBottom()
       }
-      if (stores.el2.scrollTop >= stores.el2.scrollHeight - 650) {
+      if (stores.el2?.scrollTop >= stores.el2?.scrollHeight - 650) {
         stores.rollToTheBottom2()
       }
-      // console.log(data);
     })
     // 监听服务器端的用户上线消息
     socket.on('onlineUsers', (data) => {
       stores.onlineUsers = data
-      // console.log(data)
     })
     // 监听日志
     socket.on('logs', (data) => {
       stores.logs = data
-      // console.log(data)
-      if (stores.el2.scrollTop >= stores.el2.scrollHeight - 650) {
+      if (stores.el2?.scrollTop >= stores.el2?.scrollHeight - 650) {
         stores.rollToTheBottom2()
       }
+    })
+    // 监听历史人流量
+    socket.on('historyCount', (data) => {
+      stores.historyCount = data
     })
   }
   return { init }

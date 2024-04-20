@@ -42,6 +42,7 @@
           <div class="box8-item">{{ item }}</div>
         </template>
       </div>
+      <div style="text-align: center;">服务器连接次数：{{ stores.historyCount }}</div>
     </div>
   </div>
 </template>

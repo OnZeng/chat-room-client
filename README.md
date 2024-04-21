@@ -3,6 +3,11 @@
 ### 功能
 
 - 对话
+- 登录
+- 日志
+- 云端漫游
+
+预览地址：[http://room.startea.top/](http://room.startea.top/)
 
 ### 运行
 

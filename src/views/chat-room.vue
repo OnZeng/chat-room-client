@@ -116,6 +116,10 @@ onMounted(async () => {
   display: none;
 }
 
+.box4-content {
+  word-break: break-word;
+}
+
 .box5 {
   width: 100%;
   height: 40px;

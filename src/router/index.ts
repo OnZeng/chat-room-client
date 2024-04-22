@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import index from '../views/index.vue'
+import index from '@/views/index/index.vue'
 import { useCounterStore } from '@/stores/counter'
 
 const router = createRouter({
@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/chat-room',
       name: 'chat-room',
-      component: () => import('../views/chat-room.vue')
+      component: () => import('@/views/ChatRoom/index.vue')
     }
   ]
 })

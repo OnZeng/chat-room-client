@@ -9,6 +9,7 @@ import { useMonitorStore } from '@/stores/onmonitor'
 const Monitor = useMonitorStore()
 
 onMounted(() => {
+  // 初始化监控
   Monitor.init()
 });
 </script>

@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
-import { useCounterStore } from '../stores/counter'
+import { useCounterStore } from '@/stores/counter'
 import { socket } from "@/socket";
 
 const stores = useCounterStore()
@@ -39,7 +39,7 @@ const submit = () => {
     stores.user.name = user.value.name
     stores.user.avatar = user.value.avatar
     if (!socket.connected) return alert('服务器连接失败')
-    // 发送用户信息到服务器
+    // 登录
     socket.emit("onlineUsers", {
         id: socket.id,
         name: user.value.name,
@@ -49,55 +49,5 @@ const submit = () => {
 }
 </script>
 <style scoped>
-.box1 {
-    width: 400px;
-    height: 400px;
-    border: 1px solid;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.box2 {
-    width: 300px;
-    height: 40px;
-    display: flex;
-    gap: 10px;
-}
-
-.input1 {
-    padding-block: 0;
-    padding-inline: 0;
-    padding: 0;
-    margin: 0;
-    border: 1px solid;
-    width: 300px;
-    height: 40px;
-    box-sizing: border-box;
-}
-
-.input1:focus-visible {
-    outline: none;
-}
-
-.button1 {
-    background-color: white;
-    padding: 0;
-    margin: 0;
-    border: 1px solid;
-    width: 300px;
-    height: 40px;
-    cursor: pointer;
-}
-
-.img1 {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border: 1px solid;
-    border-radius: 50%;
-    cursor: pointer;
-}
+@import url('./index.css');
 </style>

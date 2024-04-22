@@ -17,6 +17,7 @@ export const useMonitorStore = defineStore('counter2', () => {
       stores.user.id = socket.id
       console.log(data)
     })
+
     /**
      * @description 监听服务器端的新消息
      */

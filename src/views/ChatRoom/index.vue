@@ -55,6 +55,7 @@ import { onMounted } from 'vue'
 import { useCounterStore } from '@/stores/counter'
 
 const stores = useCounterStore()
+
 const sendMsg = () => {
   if (stores.user.content.trim() === '') return
   // 发送消息

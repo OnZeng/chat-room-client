@@ -8,7 +8,9 @@ export const state = reactive({
 })
 
 // "undefined" means the URL will be computed from the `window.location` object
-export const ws: Socket = io(import.meta.env.VITE_APP_WS_URL)
+export const ws: Socket = io(import.meta.env.VITE_APP_WS_URL, {
+  transports: ['websocket']
+})
 
 ws.on('connect', () => {
   state.connected = true

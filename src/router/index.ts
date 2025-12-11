@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import index from '@/views/index/index.vue'
 import { useCounterStore } from '@/stores/counter'
 
 const baseTitle = import.meta.env.VITE_TITLE
@@ -8,13 +7,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: index
+      name: 'login',
+      component: () => import('@/views/login/index.vue')
     },
     {
       path: '/chat-room',
       name: 'chat-room',
-      component: () => import('@/views/ChatRoom/index.vue')
+      component: () => import('@/views/chat-room/index.vue')
     }
   ]
 })
@@ -25,10 +24,16 @@ router.afterEach(() => {
 
 router.beforeEach((to, _, next) => {
   const stores = useCounterStore()
+  // console.log(stores.token)
   if (to.path === '/chat-room') {
-    if (stores.user.name === '') {
+    if (stores.token === '' && localStorage.getItem('token') === null) {
       alert('已断开连接，请重新登录')
       return next('/')
+    }
+  }
+  if (to.path === '/') {
+    if (stores.token !== '' || localStorage.getItem('token') !== null) {
+      return next('/chat-room')
     }
   }
   next()

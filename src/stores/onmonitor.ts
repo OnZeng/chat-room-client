@@ -1,21 +1,42 @@
 import { defineStore } from 'pinia'
-import { useCounterStore } from './counter'
 import { ws } from '@/socket'
+import { useRouter } from 'vue-router'
+import { useCounterStore } from './counter'
 
 export const useMonitorStore = defineStore('counter2', () => {
   const stores = useCounterStore()
+  const router = useRouter()
+
   const init = async () => {
+    /**
+     * @description 监听连接成功
+     */
+    ws.on('connect', () => {
+      // 刷新时如果本地有用户信息则免登录
+      const token = localStorage.getItem('token') || stores.token
+      if (token) {
+        // 重新获取token
+        ws.emit('reToken', token, (res: any) => {
+          if (res.code === 0) {
+            alert(res.message)
+            localStorage.removeItem('token')
+            router.push('/')
+            return
+          }
+          stores.token = res.data.token
+          stores.user = res.data.user
+          stores.messageLists = res.data.msg
+          stores.onlineUsers = res.data.onlineUsers
+        })
+        console.log('免登录')
+        router.push('chat-room')
+      }
+    })
+
     /**
      * @description 监听服务器端的连接
      */
-    ws.on('connection', (data) => {
-      stores.messageLists = data.messageLists
-      stores.onlineUsers = data.onlineUsers
-      stores.logs = data.logs
-      stores.historyCount = data.historyCount
-
-      stores.user.id = ws.id as string
-    })
+    ws.on('connection', () => {})
 
     /**
      * @description 监听服务器端的新消息
@@ -28,13 +49,6 @@ export const useMonitorStore = defineStore('counter2', () => {
       if (stores.el2?.scrollTop >= stores.el2?.scrollHeight - 650) {
         stores.rollToTheBottom2()
       }
-    })
-
-    /**
-     * @description 监听服务器端的用户上线
-     */
-    ws.on('onlineUsers', (data) => {
-      stores.onlineUsers = data
     })
 
     /**

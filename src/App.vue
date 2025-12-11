@@ -8,8 +8,9 @@ import { useMonitorStore } from '@/stores/onmonitor'
 
 const Monitor = useMonitorStore()
 
-onMounted(() => {
+onMounted(async () => {
   // 初始化监控
-  Monitor.init()
+  await Monitor.init()
+
 });
 </script>

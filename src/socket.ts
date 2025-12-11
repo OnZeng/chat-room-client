@@ -7,16 +7,16 @@ export const state = reactive({
   barEvents: []
 })
 
-// "undefined" means the URL will be computed from the `window.location` object
+// console.log('WebSocket URL:', import.meta.env)
 export const ws: Socket = io(import.meta.env.VITE_APP_WS_URL, {
   transports: ['websocket']
 })
 
-ws.on('connect', () => {
-  state.connected = true
-  console.log('连接成功')
-})
+// ws.on('connect', () => {
+//   state.connected = true
+//   console.log('连接成功')
+// })
 
-ws.on('disconnect', () => {
-  state.connected = false
-})
+// ws.on('disconnect', () => {
+//   state.connected = false
+// })

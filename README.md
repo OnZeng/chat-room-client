@@ -2,10 +2,11 @@
 
 ### 功能
 
-- 对话
 - 登录
+- 注册
+- 对话
 - 日志
-- 云端漫游
+- 文件数据库持久化
 
 预览地址：[http://room.startea.top/](http://room.startea.top/)
 

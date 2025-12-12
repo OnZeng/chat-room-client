@@ -13,9 +13,9 @@ export const useCounterStore = defineStore('counter', () => {
   //  在线人数
   const onlineUsers = ref([])
   //  消息列表
-  const messageLists = ref([])
+  const msgList = ref([])
   //  日志
-  const logs = ref<string[]>([])
+  const logList = ref<string[]>([])
   //  当前用户
   const user = ref({
     content: ''
@@ -32,11 +32,11 @@ export const useCounterStore = defineStore('counter', () => {
   }
   return {
     user,
-    messageLists,
+    msgList,
+    logList,
     onlineUsers,
     el,
     el2,
-    logs,
     token,
     historyCount,
     rollToTheBottom,

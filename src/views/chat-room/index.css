@@ -1,5 +1,4 @@
 .box-head {
-  width: 1000px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -7,7 +6,6 @@
   border: 1px solid;
   border-bottom: 0;
   padding: 10px;
-  box-sizing: border-box;
 }
 
 .box-head-left {
@@ -34,7 +32,7 @@
 }
 
 .content {
-  width: 1000px;
+  /* width: 1000px; */
   height: 600px;
   box-sizing: border-box;
   border: 1px solid;
@@ -73,7 +71,7 @@
 }
 
 .content-center {
-  flex: 1;
+  width: 600px;
   display: flex;
   flex-direction: column;
 }
@@ -104,6 +102,10 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.content-center-text-item-box-name {
+  font-weight: bold;
 }
 
 .content-center-text-item-box-content {
@@ -139,11 +141,12 @@
 }
 
 .content-right {
-  width: 250px;
+  /* width: 250px; */
   height: 100%;
   border: 1px solid;
   border-right: 0;
   border-top: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
 }

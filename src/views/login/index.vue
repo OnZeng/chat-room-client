@@ -51,8 +51,8 @@ const images = ref([
 ])
 
 const user = ref({
-  email: '',
-  password: '',
+  email: '123456@qq.com',
+  password: '123456',
   cfmPassword: '',
   name: '',
   avatar: images.value[0]
@@ -81,7 +81,7 @@ const back = () => {
 const login = () => {
   if (!user.value.email.trim()) return alert(`请输入邮箱`)
   stores.user.email = user.value.email
-  console.log(ws);
+  // console.log(ws);
   if (!ws.connected) {
     return alert('服务器连接失败')
   }
@@ -93,18 +93,16 @@ const login = () => {
     if (res.code === 0) {
       return alert(res.message)
     }
-    // 登录成功
-    stores.token = res.data.token
-    stores.messageLists = res.data.msg
-    stores.onlineUsers = res.data.onlineUsers
-    stores.user = res.data.user
     // 是否初始化
     if (res.data.user.isInit === 0) {
+      stores.token = res.data.token
       is.value = 3
       return alert('请先设置昵称和头像')
     }
-    // 存储数据在本地
+    // 登录成功
     localStorage.setItem('token', res.data.token)
+    stores.token = res.data.token
+    stores.user = res.data.user
     router.push('chat-room')
   })
 }
@@ -140,21 +138,16 @@ const enterChatRoom = () => {
   // 设置昵称和头像请求
   ws.emit('init', {
     name: user.value.name,
-    avatar: user.value.avatar
-  }, stores.token, (res) => {
+    avatar: user.value.avatar,
+    token: stores.token
+  }, (res) => {
     if (res.code === 0) {
       return alert(res.message)
     }
     // 设置成功
     stores.token = res.data.token
-    stores.user.uuid = res.data.uuid
-    stores.user.email = res.data.email
-    stores.user.name = res.data.name
-    stores.user.avatar = res.data.avatar
-    stores.user.state = res.data.state
-    stores.user.role = res.data.role
-    stores.messageLists = res.data.msg
-    stores.onlineUsers = res.data.onlineUsers
+    localStorage.setItem('token', res.data.token)
+    stores.user = res.data.user
     router.push('chat-room')
   })
 }

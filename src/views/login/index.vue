@@ -96,7 +96,7 @@ const login = () => {
     }
     // 是否初始化
     if (res.code === 2) {
-      stores.token = res.data.token
+      localStorage.setItem('token', res.data.token)
       is.value = 3
       return alert('请先设置昵称和头像')
     }

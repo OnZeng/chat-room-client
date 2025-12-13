@@ -1,5 +1,6 @@
 <template>
   <RouterView />
+  <a class="a-link" href="https://github.com/OnZeng/chat-room-server" target="_blank">Github</a>
 </template>
 <script setup lang="ts">
 import { onMounted } from 'vue'

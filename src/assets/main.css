@@ -54,3 +54,9 @@ button:hover {
 button:active {
   background-color: #e0e0e0;
 }
+
+.a-link {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+}

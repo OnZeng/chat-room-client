@@ -24,7 +24,6 @@ router.afterEach(() => {
 router.beforeEach((to, _, next) => {
   if (to.path === '/chat-room') {
     if (localStorage.getItem('token') === null) {
-      alert('已断开连接，请重新登录')
       return next('/')
     }
   }

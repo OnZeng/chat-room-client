@@ -1,40 +1,43 @@
 <template>
-  <div class="box" v-if="is === 1">
-    <div class="form">
-      <input v-model="user.email" placeholder="请输入邮箱" />
-      <input v-model="user.password" placeholder="请输入密码" />
-      <button type="submit" @click="regView">注册</button>
-      <button type="submit" @click="login">登录</button>
+  <div class="box">
+    <div class="box1" v-if="is === 1">
+      <div class="box1-1">
+        <input v-model="user.email" placeholder="请输入邮箱" />
+        <input v-model="user.password" placeholder="请输入密码" />
+        <button type="submit" @click="regView">注册</button>
+        <button type="submit" @click="login">登录</button>
+      </div>
     </div>
-  </div>
-  <div class="box" v-if="is === 2">
-    <button class="back-login" @click="back">返回</button>
-    <div class="form">
-      <input v-model="user.email" placeholder="请输入邮箱" />
-      <input v-model="user.password" placeholder="请输入密码" />
-      <input v-model="user.cfmPassword" placeholder="请再次输入密码" />
-      <button type="submit" @click="register">注册并登录</button>
+    <div class="box1" v-if="is === 2">
+      <button class="back-login" @click="back">返回</button>
+      <div class="box1-1">
+        <input v-model="user.email" placeholder="请输入邮箱" />
+        <input v-model="user.password" placeholder="请输入密码" />
+        <input v-model="user.cfmPassword" placeholder="请再次输入密码" />
+        <button type="submit" @click="register">注册并登录</button>
+      </div>
     </div>
-  </div>
-  <div class="box" v-if="is === 3">
-    <p>选择头像和昵称</p>
-    <div class="box2">
-      <template v-for="image in images" :key="image">
-        <img class="img" :src="image" @click="() => (user.avatar = image)" />
-      </template>
+    <div class="box1" v-if="is === 3">
+      <p>选择头像和昵称</p>
+      <div class="box1-2">
+        <template v-for="image in images" :key="image">
+          <img class="img" :src="image" @click="() => (user.avatar = image)" />
+        </template>
+      </div>
+      <img class="img" :src="user.avatar" />
+      <div class="box1-1">
+        <input v-model="user.name" placeholder="请输入昵称" />
+        <button type="submit" @click="enterChatRoom">进入聊天室</button>
+      </div>
     </div>
-    <img class="img" :src="user.avatar" />
-    <div class="form">
-      <input v-model="user.name" placeholder="请输入昵称" />
-      <button type="submit" @click="enterChatRoom">进入聊天室</button>
-    </div>
+    <p class="ping">{{ stores.ping }}</p>
   </div>
 </template>
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCounterStore } from '@/stores/counter'
-import { ws } from '@/socket'
+import { ws } from '@/socket/index'
 
 const stores = useCounterStore()
 const router = useRouter()
@@ -70,8 +73,8 @@ const regView = () => {
 
 // 返回登录页面
 const back = () => {
-  user.value.email = ''
-  user.value.password = ''
+  user.value.email = '123456@qq.com'
+  user.value.password = '123456'
   user.value.cfmPassword = ''
   user.value.name = ''
   user.value.avatar = images.value[0]
@@ -80,8 +83,6 @@ const back = () => {
 
 const login = () => {
   if (!user.value.email.trim()) return alert(`请输入邮箱`)
-  stores.user.email = user.value.email
-  // console.log(ws);
   if (!ws.connected) {
     return alert('服务器连接失败')
   }
@@ -94,14 +95,13 @@ const login = () => {
       return alert(res.message)
     }
     // 是否初始化
-    if (res.data.user.isInit === 0) {
+    if (res.code === 2) {
       stores.token = res.data.token
       is.value = 3
       return alert('请先设置昵称和头像')
     }
     // 登录成功
     localStorage.setItem('token', res.data.token)
-    stores.token = res.data.token
     stores.user = res.data.user
     router.push('chat-room')
   })
@@ -124,7 +124,7 @@ const register = () => {
     if (res.code === 0) {
       return alert(res.message)
     }
-    stores.token = res.data.token
+    localStorage.setItem('token', res.data.token)
     // 注册成功，进入选择头像和昵称页面
     is.value = 3
   })
@@ -132,6 +132,7 @@ const register = () => {
 
 // 设置昵称和头像，进入聊天室
 const enterChatRoom = () => {
+  const token = localStorage.getItem('token')
   // 昵称需为1-6个文字或字母
   const nameRegex = /^[\u4e00-\u9fa5a-zA-Z0-9_]{1,6}$/
   if (!nameRegex.test(user.value.name)) return alert('昵称需为1-6个文字或字母')
@@ -139,13 +140,12 @@ const enterChatRoom = () => {
   ws.emit('init', {
     name: user.value.name,
     avatar: user.value.avatar,
-    token: stores.token
+    token: token
   }, (res) => {
     if (res.code === 0) {
       return alert(res.message)
     }
     // 设置成功
-    stores.token = res.data.token
     localStorage.setItem('token', res.data.token)
     stores.user = res.data.user
     router.push('chat-room')

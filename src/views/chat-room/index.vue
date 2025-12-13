@@ -1,55 +1,54 @@
 <template>
   <div>
-    <div class="box-head">
-      <div class="box-head-left">
-        <img class="box-head-left-avatar" :src="stores.user.avatar" />
-        <div class="box-head-left-name">{{ stores.user.name }}</div>
+    <div class="box1">
+      <div class="box1-1">
+        <img class="box1-1-avatar" :src="stores.user?.avatar" />
+        <div class="box1-1-name">{{ stores.user?.name }}</div>
       </div>
-      <div class="box-head-rigt">
+      <div class="box1-2">
         <div>在线人数({{ stores.onlineUsers.length }})</div>
         <button class="back-btn" @click="logout">退出</button>
       </div>
     </div>
-    <div class="content">
-      <div class="content-left">
+    <div class="box2">
+      <div class="box2-1">
         <template v-for="(item, index) in stores.onlineUsers">
-          <div class="content-left-item" v-if="item.uuid != stores.user.uuid" :key="index">
-            <img class="content-left-item-avatar" :src="item.avatar" />
-            <div class="content-left-item-name">{{ item.name }}</div>
+          <div class="box2-1-item" v-if="item.uuid != stores.user.uuid" :key="index">
+            <img class="box2-1-item-avatar" :src="item.avatar" />
+            <div class="box2-1-item-name">{{ item.name }}</div>
           </div>
         </template>
       </div>
-      <div class="content-center">
-        <div class="content-center-text" id="el">
-          <div v-for="(item, index) in stores.msgList" :key="index" class="content-center-text-item"
+      <div class="box3">
+        <div class="box3-1" id="el">
+          <div v-for="(item, index) in stores.msgList" :key="index" class="box3-1-item"
             :class="[item.uuid == stores.user.uuid ? 'right' : '']">
-            <img class="content-center-text-item-avatar" :src="item.avatar" />
-            <div class="content-center-text-item-box">
-              <div class="content-center-text-item-box-name">{{ item.uuid === stores.user.uuid ? '' : item.name }}</div>
-              <div class="content-center-text-item-box-content">{{ item.content }}</div>
+            <img class="box3-1-item-avatar" :src="item.avatar" />
+            <div class="box3-1-item-box">
+              <div class="box3-1-item-box-name">{{ item.uuid === stores.user.uuid ? '' : item.name }}</div>
+              <div class="box3-1-item-box-content">{{ item.content }}</div>
             </div>
           </div>
         </div>
-        <div class="content-center-input">
+        <div class="box3-2">
           <input v-model="content" />
-          <button class="content-center-input-send" @click="sendMsg">发送</button>
+          <button class="box3-2-1" @click="sendMsg">发送</button>
         </div>
       </div>
-      <div class="content-right">
-        <div class="content-right-top">
-          <a href="https://github.com/OnZeng/chat-room-server" target="_blank">Github</a>
+      <div class="box4">
+        <div class="box4-1" id="log">
+          <div v-for="(item, index) in stores.logList" :key="index" class="box4-1-item">{{ item }}</div>
         </div>
-        <div style="text-align: center">日志</div>
-        <div class="content-right-content" id="log">
-          <div v-for="(item, index) in stores.logList" :key="index" class="content-right-content-item">{{ item }}</div>
+        <div class="box4-2">
+          <div>房间进入次数：{{ stores.connCount }}</div>
+          <div>{{ stores.ping }}</div>
         </div>
-        <!-- <div style="text-align: center">服务器连接次数：{{ stores.historyCount }}</div> -->
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import { ws } from '@/socket'
+import { ws } from '@/socket/index'
 import { ref, onMounted } from 'vue'
 import { useCounterStore } from '@/stores/counter'
 import { useRouter } from 'vue-router'
@@ -61,7 +60,8 @@ const content = ref('')
 
 // 退出登录状态
 const logout = () => {
-  ws.emit('logout', { token: stores.token }, (res) => {
+  const token = localStorage.getItem('token')
+  ws.emit('logout', { token }, (res) => {
     if (res.code === 0) {
       return alert(res.message)
     }
@@ -77,7 +77,7 @@ const sendMsg = () => {
   // 发送消息
   ws.emit('sendMsg', {
     content: content.value,
-    token: token
+    token
   }, (res) => {
     if (res.code === 0) {
       alert(res.message)
@@ -85,12 +85,6 @@ const sendMsg = () => {
   })
   content.value = ''
   stores.rollToTheBottom()
-}
-
-// 根据uuid来匹配头像
-const alotAvatar = (uuid) => {
-  const user = stores.onlineUsers.find(user => user.uuid === uuid);
-  return user ? user.avatar : 'https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEMiI1pO8DZ-cWvycasF5roA7Tx0y5XpQACZx8AAlAH2FVUX1Gc83ij5zYE.jpg';
 }
 
 onMounted(async () => {

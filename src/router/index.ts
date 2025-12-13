@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useCounterStore } from '@/stores/counter'
 
 const baseTitle = import.meta.env.VITE_TITLE
 const router = createRouter({
@@ -23,16 +22,14 @@ router.afterEach(() => {
 })
 
 router.beforeEach((to, _, next) => {
-  const stores = useCounterStore()
-  // console.log(stores.token)
   if (to.path === '/chat-room') {
-    if (stores.token === '' && localStorage.getItem('token') === null) {
+    if (localStorage.getItem('token') === null) {
       alert('已断开连接，请重新登录')
       return next('/')
     }
   }
   if (to.path === '/') {
-    if (stores.token !== '' || localStorage.getItem('token') !== null) {
+    if (localStorage.getItem('token') !== null) {
       return next('/chat-room')
     }
   }

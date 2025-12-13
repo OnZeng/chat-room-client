@@ -1,38 +1,49 @@
-## 简单聊天室客户端
+## 简易聊天室客户端
+
+### 介绍
+
+简易的聊天室客户端，使用 vue3 编写，全程 websocket 连接，基于 socket.io 实现。
+
+### 效果图
+
+<table>
+    <tr>
+        <td ><center><img src="./demo/1.png" width="400">图1</center></td>
+        <td ><center><img src="./demo/2.png" width="400">图2</center></td>
+    </tr>
+    <tr>
+        <td ><center><img src="./demo/3.png" width="400">图3</center></td>
+        <td ><center><img src="./demo/4.png" width="400">图4</center></td>
+    </tr>
+</table>
 
 ### 功能
 
 - 登录
 - 注册
-- 对话
-- 日志
-- 文件数据库持久化
+- 发送消息
+- 接收消息
+- 身份认证
+- 文件数据存储
+- 更新推送
 
-预览地址：[http://room.startea.top/](http://room.startea.top/)
+预览地址：[http://69.197.140.41:3000/](http://69.197.140.41:3000/)
 
-### 运行
-
-```
-npm install && npm start     # 安装依赖并启动
-```
-
-### 安装
+### 安装依赖
 
 ```
 npm install
 ```
 
-### 启动
+### 运行
 
 ```
-npm start
+npm run dev
 ```
 
-### 打包
+### 访问
 
-```
-npm run build
-```
+打开浏览器，访问 `http://localhost:5173/` 即可进入聊天室。
 
 ### 其他
 

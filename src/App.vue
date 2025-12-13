@@ -4,11 +4,12 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
-import { useMonitorStore } from '@/stores/onmonitor'
-const Monitor = useMonitorStore()
+import { initSocketListeners } from '@/socket/socket'
 
 onMounted(async () => {
-  // 初始化监控
-  await Monitor.init()
+  // 初始化监听器
+  await initSocketListeners()
 });
+
+
 </script>

@@ -6,10 +6,10 @@ export const useCounterStore = defineStore('counter', () => {
   const el = ref() as Ref<HTMLElement>
   const el2 = ref() as Ref<HTMLElement>
 
-  // 令牌
-  const token = ref('')
-  //  历史人数
-  const historyCount = ref(0)
+  // 延迟
+  const ping = ref('ping...')
+  //  历史连接数量
+  const connCount = ref(0)
   //  在线人数
   const onlineUsers = ref([])
   //  消息列表
@@ -31,14 +31,14 @@ export const useCounterStore = defineStore('counter', () => {
     el2.value.scrollTop = el2.value?.scrollHeight
   }
   return {
+    el,
+    el2,
     user,
     msgList,
     logList,
     onlineUsers,
-    el,
-    el2,
-    token,
-    historyCount,
+    ping,
+    connCount,
     rollToTheBottom,
     rollToTheBottom2
   }

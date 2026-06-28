@@ -34,7 +34,7 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useCounterStore } from "@/stores/counter";
 import { ws } from "@/socket/index";
@@ -141,7 +141,7 @@ const register = () => {
 
 // 设置昵称和头像，进入聊天室
 const enterChatRoom = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token") || stores.token;
   // 昵称需为1-6个文字或字母
   const nameRegex = /^[\u4e00-\u9fa5a-zA-Z0-9_]{1,6}$/;
   if (!nameRegex.test(user.value.name)) return alert("昵称需为1-6个文字或字母");
@@ -157,6 +157,17 @@ const enterChatRoom = () => {
       if (res.code === 0) {
         return alert(res.message);
       }
+      if (res.code === -10) {
+        alert(res.message);
+        // 清除url参数
+        router.push({
+          path: "/",
+          query: {},
+        });
+        is.value = 1;
+        user.value.name = "";
+        return;
+      }
       // 设置成功
       localStorage.setItem("token", res.data.token);
       stores.user = res.data.user;
@@ -164,6 +175,15 @@ const enterChatRoom = () => {
     },
   );
 };
+
+onMounted(() => {
+  // 获取url参数
+  const token = router.currentRoute.value.query.token;
+  if (token) {
+    stores.token = token;
+    is.value = 3;
+  }
+});
 </script>
 <style scoped>
 @import url("./index.css");

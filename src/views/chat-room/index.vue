@@ -93,6 +93,17 @@ const sendMsg = () => {
       if (res.code === 0) {
         alert(res.message);
       }
+      if (res.code === -2) {
+        alert(res.message);
+        localStorage.removeItem("token");
+        stores.token = "";
+        router.push({
+          path: "/",
+          query: {
+            token: token,
+          },
+        });
+      }
     },
   );
   content.value = "";

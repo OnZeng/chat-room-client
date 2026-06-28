@@ -5,7 +5,6 @@ import { ws } from "./index";
 export const initSocketListeners = async () => {
   const stores = useCounterStore();
   const router = useRouter();
-
   // 延迟检测
   setInterval(() => {
     const start = Date.now();
@@ -14,7 +13,7 @@ export const initSocketListeners = async () => {
       const duration = Date.now() - start;
       stores.ping = ` ${duration} ms`;
     });
-  }, 1000);
+  }, 2000);
 
   // 连接成功
   ws.on("connect", () => {
@@ -54,6 +53,23 @@ export const initSocketListeners = async () => {
       localStorage.setItem("version", val);
       alert("发现新版本，页面即将刷新");
       window.location.reload();
+    }
+  });
+
+  // 监听账号是否初始化
+  ws.on("init", (data) => {
+    const token = localStorage.getItem("token") || stores.token;
+    if (data?.code === -2) {
+      alert(data.message);
+      localStorage.removeItem("token");
+      stores.token = "";
+      router.push({
+        path: "/",
+        query: {
+          token: token,
+        },
+      });
+      return;
     }
   });
 

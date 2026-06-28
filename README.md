@@ -1,44 +1,51 @@
-# chat-room-client
+## 简易聊天室客户端
 
-This template should help get you started developing with Vue 3 in Vite.
+### 介绍
 
-## Recommended IDE Setup
+简易的聊天室客户端，使用 vue3 编写，全程 websocket 连接，基于 socket.io 实现。
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### 效果图
 
-## Recommended Browser Setup
+<table>
+    <tr>
+        <td ><center><img src="./demo/1.png" width="400">图1</center></td>
+        <td ><center><img src="./demo/2.png" width="400">图2</center></td>
+    </tr>
+    <tr>
+        <td ><center><img src="./demo/3.png" width="400">图3</center></td>
+        <td ><center><img src="./demo/4.png" width="400">图4</center></td>
+    </tr>
+</table>
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### 功能
 
-## Customize configuration
+- 登录
+- 注册
+- 发送消息
+- 接收消息
+- 身份认证
+- 文件数据存储
+- 更新推送
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+预览地址：[http://69.197.140.41:3000/](http://69.197.140.41:3000/)
 
-## Project Setup
+### 安装依赖
 
-```sh
+```
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 运行
 
-```sh
+```
 npm run dev
 ```
 
-### Compile and Minify for Production
+### 访问
 
-```sh
-npm run build
-```
+打开浏览器，访问 `http://localhost:5173/` 即可进入聊天室。
 
-### Lint with [ESLint](https://eslint.org/)
+### 其他
 
-```sh
-npm run lint
-```
+客户端代码请参考 [chat-room-client](https://github.com/OnZeng/chat-room-client)。
+服务器端代码请参考 [chat-room-server](https://github.com/OnZeng/chat-room-server)。

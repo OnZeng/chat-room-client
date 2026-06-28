@@ -59,11 +59,13 @@ export const initSocketListeners = async () => {
       localStorage.setItem("version", val);
       return;
     }
-    console.log("客户端版本", localVersion);
-    console.log("服务端版本", val);
+    console.log("本地数据结构版本", localVersion);
+    console.log("远程数据结构版本", val);
     if (localVersion !== val) {
       localStorage.setItem("version", val);
-      alert("发现新版本，页面即将刷新");
+      alert("数据结构发生变化，页面即将刷新");
+      localStorage.clear();
+      sessionStorage.clear();
       window.location.reload();
     }
   });

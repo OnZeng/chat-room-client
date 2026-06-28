@@ -18,33 +18,35 @@ export const initSocketListeners = async () => {
   // 连接成功
   ws.on("connect", () => {
     // 刷新时如果本地有用户信息则免登录
-    const token = localStorage.getItem("token");
-    if (token) {
-      // 刷新token
-      ws.emit("reToken", { token }, (res) => {
-        if (res.code === 0) {
-          alert(res.message);
-          localStorage.removeItem("token");
-          router.push("/");
-          return;
-        }
-        if (res.code === -2) {
-          alert(res.message);
-          localStorage.removeItem("token");
-          stores.token = "";
-          router.push({
-            path: "/",
-            query: {
-              token: token,
-            },
-          });
-          return;
-        }
-        stores.user = res.data.user;
-        localStorage.setItem("token", res.data.token);
-      });
-      router.push("chat-room");
-    }
+    setTimeout(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        // 刷新token
+        ws.emit("reToken", { token }, (res) => {
+          if (res.code === 0) {
+            alert(res.message);
+            localStorage.removeItem("token");
+            router.push("/");
+            return;
+          }
+          if (res.code === -2) {
+            alert(res.message);
+            localStorage.removeItem("token");
+            stores.token = "";
+            router.push({
+              path: "/",
+              query: {
+                token: token,
+              },
+            });
+            return;
+          }
+          stores.user = res.data.user;
+          localStorage.setItem("token", res.data.token);
+        });
+        router.push("chat-room");
+      }
+    }, 100);
   });
 
   // 连接断开
@@ -59,13 +61,14 @@ export const initSocketListeners = async () => {
       localStorage.setItem("version", val);
       return;
     }
-    console.log("本地数据结构版本", localVersion);
-    console.log("远程数据结构版本", val);
+    console.log("本地版本", localVersion);
+    console.log("远程版本", val);
     if (localVersion !== val) {
       localStorage.setItem("version", val);
-      alert("数据结构发生变化，页面即将刷新");
+      // 清除本地token
       localStorage.clear();
       sessionStorage.clear();
+      alert("发现新版本，页面即将刷新");
       window.location.reload();
     }
   });
@@ -73,7 +76,7 @@ export const initSocketListeners = async () => {
   // 监听账号是否初始化
   ws.on("init", (data) => {
     const token = localStorage.getItem("token") || stores.token;
-    if (data?.code === -2) {
+    if (data.code === -2) {
       alert(data.message);
       localStorage.removeItem("token");
       stores.token = "";
@@ -83,7 +86,6 @@ export const initSocketListeners = async () => {
           token: token,
         },
       });
-      return;
     }
   });
 

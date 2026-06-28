@@ -28,6 +28,18 @@ export const initSocketListeners = async () => {
           router.push("/");
           return;
         }
+        if (res.code === -2) {
+          alert(res.message);
+          localStorage.removeItem("token");
+          stores.token = "";
+          router.push({
+            path: "/",
+            query: {
+              token: token,
+            },
+          });
+          return;
+        }
         stores.user = res.data.user;
         localStorage.setItem("token", res.data.token);
       });

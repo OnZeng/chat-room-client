@@ -37,7 +37,7 @@
           </div>
         </div>
         <div class="box3-2">
-          <input v-model="content" />
+          <input v-model="content" @keyup.enter="sendMsg" />
           <button class="box3-2-1" @click="sendMsg">发送</button>
         </div>
       </div>

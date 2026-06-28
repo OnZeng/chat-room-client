@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-show="stores.isConnected">连接中...</div>
+  <div v-show="!stores.isConnected">
     <div class="box1">
       <div class="box1-1">
         <img class="box1-1-avatar" :src="stores.user?.avatar" />

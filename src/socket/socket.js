@@ -13,7 +13,7 @@ export const initSocketListeners = async () => {
       const duration = Date.now() - start;
       stores.ping = ` ${duration} ms`;
     });
-  }, 2000);
+  }, 500);
 
   // 连接成功
   ws.on("connect", () => {
@@ -45,6 +45,7 @@ export const initSocketListeners = async () => {
           localStorage.setItem("token", res.data.token);
         });
         router.push("chat-room");
+        stores.isConnected = false;
       }
     }, 100);
   });

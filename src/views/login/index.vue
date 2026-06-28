@@ -107,6 +107,7 @@ const login = () => {
       localStorage.setItem("token", res.data.token);
       stores.user = res.data.user;
       router.push("chat-room");
+      stores.isConnected = false;
     },
   );
 };
@@ -172,6 +173,7 @@ const enterChatRoom = () => {
       localStorage.setItem("token", res.data.token);
       stores.user = res.data.user;
       router.push("chat-room");
+      stores.isConnected = false;
     },
   );
 };

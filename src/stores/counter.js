@@ -6,6 +6,8 @@ export const useCounterStore = defineStore("counter", () => {
   const el = ref();
   const el2 = ref();
 
+  //  连接状态
+  const isConnected = ref(true);
   // 延迟
   const ping = ref("ping...");
   //  历史连接数量
@@ -39,6 +41,7 @@ export const useCounterStore = defineStore("counter", () => {
     onlineUsers,
     ping,
     connCount,
+    isConnected,
     rollToTheBottom,
     rollToTheBottom2,
   };

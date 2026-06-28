@@ -1,3 +1,6 @@
+# compiled output
+/dist-client
+/dist
 # Logs
 logs
 *.log
@@ -14,6 +17,9 @@ dist-ssr
 coverage
 *.local
 
+/cypress/videos/
+/cypress/screenshots/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -26,14 +32,9 @@ coverage
 
 *.tsbuildinfo
 
-.eslintcache
 
-# Cypress
-/cypress/videos/
-/cypress/screenshots/
-
-# Vitest
-__screenshots__/
-
-# Vite
-*.timestamp-*-*.mjs
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
